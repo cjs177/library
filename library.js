@@ -1,5 +1,5 @@
 let library = [
-    {
+    /*{
         "title": "Huck Finn",
         "author": "John Smith",
         "pages" : 343,
@@ -16,12 +16,17 @@ let library = [
         "author": "Jim Kelly",
         "pages" : 2313,
         "read" : true
-    }
+    }*/
 ];
 
 let container = document.querySelector('.container');
 let addBtn = document.getElementById('addBtn');
 let bookForm = document.getElementById('formContainer');
+let subBtn = document.getElementById('subBtn');
+let titleValue = document.getElementById('title');
+let authorValue = document.getElementById('author');
+let pagesValue = document.getElementById('pages');
+let readValue = document.getElementById('read');
 
 function book(title, author, pages, read) {
     this.title = title;
@@ -30,9 +35,48 @@ function book(title, author, pages, read) {
     this.read = read;
 }
 
-function addBookToLibrary() {
+function addBookToLibrary(title, author, pages, read) {
+    let size = library.length;
+    let createBook = new book(title, author, pages, read);
+    let newBook = {
+        "title": createBook.title,
+        "author": createBook.author,
+        "pages": createBook.pages,
+        "read": createBook.read
+    }
+    library.push(newBook);
+    console.log(library);
+    displayBooks();
+    /*library[size].title = createBook.title;
+    library[size].author = createBook.author;
+    library[size].pages = createBook.pages;
+    library[size].read = createBook.read;*/
+
 
 }
+
+
+subBtn.addEventListener('click', () => {
+    if(readValue.checked == true) {
+        readValue.value = true;
+    }
+
+    else{
+        readValue.value = false;
+    }
+    let title = titleValue.value;
+    let author = authorValue.value; 
+    let pages = pagesValue.value; 
+    let read = readValue.value;
+    container.innerHTML = "";
+    bookForm.style.display = "none";
+    titleValue.value = "";
+    authorValue.value = ""; 
+    pagesValue.value = ""; 
+    readValue.value = true;
+
+    addBookToLibrary(title, author, pages, read)
+});
 
 function displayBooks() {
     for(let i = 0; i < library.length; i++) {
@@ -68,6 +112,8 @@ function displayBooks() {
                 ul.innerHTML = `<li>${library[i].title}</li> <li>${library[i].author}</li> <li>${library[i].pages} pages</li>${library[i].read}<li>`;
             }
         });
+
+        
         
     }
 }
@@ -75,4 +121,3 @@ function displayBooks() {
 addBtn.addEventListener('click', () => {
     bookForm.style.display = "block";
 });
-

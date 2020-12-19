@@ -10,28 +10,27 @@
     <h1>Library</h1>
     <button id="addBtn">Add New Book</button>
     <div id="popupContainer">
-        <form id="formContainer">
+        <div id="formContainer"></form>
             <h2>Book Form</h2>
             <div class="formItem">
-                <input type="text" placeholder="Book Title" name = "title"> 
+                <input type="text" id="title" placeholder="Book Title" name = "title"> 
             </div>
             <div class="formItem">
-                <input type="text" placeholder="Book Author" name = "author">
+                <input type="text" id="author" placeholder="Book Author" name = "author">
             </div>
             <div class="formItem">
-                <input type="text" placeholder="Pages" name = "pages">
+                <input type="text" id="pages" placeholder="Pages" name = "pages">
             </div>
             <div class="formItem">
                 <label for="read" id="readLabel"><strong>Read</strong></label>
-                <input type="checkbox" value="true">
+                <input type="checkbox" id="read" value="true">
             </div>
             <div class="formItem">
-                <button class = "addBtn">Add</button>
+                <button id = "subBtn">Add</button>
             </div>
 
-        </form>
+        </div>
     </div>
-    
     <div class="container">
     </div>
     <script src="library.js"></script>
