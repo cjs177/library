@@ -28,6 +28,8 @@ let authorValue = document.getElementById('author');
 let pagesValue = document.getElementById('pages');
 let readValue = document.getElementById('read');
 
+storageRead();
+
 function book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -36,7 +38,6 @@ function book(title, author, pages, read) {
 }
 
 function addBookToLibrary(title, author, pages, read) {
-    let size = library.length;
     let createBook = new book(title, author, pages, read);
     let newBook = {
         "title": createBook.title,
@@ -45,24 +46,31 @@ function addBookToLibrary(title, author, pages, read) {
         "read": createBook.read
     }
     library.push(newBook);
-    console.log(library);
+    storageSave()
     displayBooks();
-    /*library[size].title = createBook.title;
-    library[size].author = createBook.author;
-    library[size].pages = createBook.pages;
-    library[size].read = createBook.read;*/
+}
 
+function storageSave() {
+    let library_serialized = JSON.stringify(library);
+    localStorage.setItem("library", library_serialized);
+}
 
+function storageRead() {
+    let library_deserialized = JSON.parse(localStorage.getItem("library"));
+    if(library_deserialized){
+        library = library_deserialized;
+    }
+    displayBooks();
 }
 
 
 subBtn.addEventListener('click', () => {
     if(readValue.checked == true) {
-        readValue.value = true;
+        readValue.value = "Finished";
     }
 
     else{
-        readValue.value = false;
+        readValue.value = "Reading";
     }
     let title = titleValue.value;
     let author = authorValue.value; 
@@ -73,9 +81,8 @@ subBtn.addEventListener('click', () => {
     titleValue.value = "";
     authorValue.value = ""; 
     pagesValue.value = ""; 
-    readValue.value = true;
-
-    addBookToLibrary(title, author, pages, read)
+    readValue.value = "Finished";
+    addBookToLibrary(title, author, pages, read);
 });
 
 function displayBooks() {
@@ -90,25 +97,31 @@ function displayBooks() {
         readBtn.innerHTML = "read";
         readBtn.className = "readBtn"
 
-        let btn = document.createElement('btn');
-        btn.innerHTML = "delete";
-        btn.className = "deleteBtn"
+        let deleteBtn = document.createElement('btn');
+        deleteBtn.innerHTML = "delete";
+        deleteBtn.className = "deleteBtn"
         div.appendChild(readBtn);
-        div.appendChild(btn);
+        div.appendChild(deleteBtn);
         container.appendChild(div);
 
-        btn.addEventListener("click", ()=> {
+        deleteBtn.addEventListener("click", ()=> {
             container.removeChild(div);
+            library.splice(library.indexOf(library[i]), 1);
+            let tempArray = library;
+            localStorage.clear();
+            let library_serialized = JSON.stringify(tempArray);
+            localStorage.setItem("library", library_serialized);
+            
         });
 
         readBtn.addEventListener("click", ()=> {
-            if(library[i].read == true) {
-                library[i].read = false;
+            if(library[i].read == "Finished") {
+                library[i].read = "Reading";
                 ul.innerHTML = `<li>${library[i].title}</li> <li>${library[i].author}</li> <li>${library[i].pages} pages</li>${library[i].read}<li>`;
             }
 
             else{
-                library[i].read = true;
+                library[i].read = "Finished";
                 ul.innerHTML = `<li>${library[i].title}</li> <li>${library[i].author}</li> <li>${library[i].pages} pages</li>${library[i].read}<li>`;
             }
         });
