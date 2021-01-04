@@ -30,11 +30,20 @@ let readValue = document.getElementById('read');
 
 storageRead();
 
-function book(title, author, pages, read) {
+/*function book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+}*/
+
+class book {
+    constructor(title, author, pages, read){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 }
 
 function addBookToLibrary(title, author, pages, read) {
@@ -124,6 +133,7 @@ function displayBooks() {
                 library[i].read = "Finished";
                 ul.innerHTML = `<li>${library[i].title}</li> <li>${library[i].author}</li> <li>${library[i].pages} pages</li>${library[i].read}<li>`;
             }
+            storageSave();
         });
 
         
