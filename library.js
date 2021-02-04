@@ -85,6 +85,9 @@ subBtn.addEventListener('click', () => {
     let author = authorValue.value; 
     let pages = pagesValue.value; 
     let read = readValue.value;
+    if(title === "" || author === "" || pages === "" || isNaN(pages) === true){
+        return false;
+    }
     container.innerHTML = "";
     bookForm.style.display = "none";
     titleValue.value = "";

@@ -10,16 +10,17 @@
     <h1>Library</h1>
     <button id="addBtn">Add New Book</button>
     <div id="popupContainer">
-        <div id="formContainer"></form>
+        <div id="formContainer">
             <h2>Book Form</h2>
+            <form action="">
             <div class="formItem">
-                <input type="text" id="title" placeholder="Book Title" name = "title"> 
+                <input type="text" id="title" placeholder="Book Title" name = "title" required> 
             </div>
             <div class="formItem">
-                <input type="text" id="author" placeholder="Book Author" name = "author">
+                <input type="text" id="author" placeholder="Book Author" name = "author" required>
             </div>
             <div class="formItem">
-                <input type="text" id="pages" placeholder="Pages" name = "pages">
+                <input type="text" id="pages" placeholder="Pages" name = "pages" required pattern="[0-9]{1,5}">
             </div>
             <div class="formItem">
                 <label for="read" id="readLabel"><strong>Read</strong></label>
@@ -28,6 +29,7 @@
             <div class="formItem">
                 <button id = "subBtn">Add</button>
             </div>
+        </form>
 
         </div>
     </div>
